@@ -15,7 +15,7 @@ block content
             if video.views === 1
                 span.video__views 1 view
             else 
-                span.video__views #{video.views} views
+                span.video__views#jsViewCount #{video.views} views
             .video__creator
                 |Uploaded by 
                 a(href=routes.userDetail(video.creator.id))=video.creator.name
@@ -23,4 +23,10 @@ block content
             if video.comments.length === 1
                 span.video__comment-number 1 comment
             else
-                span.video__comment-number #{video.comments.length} comments
+                span.video__comment-number#jsCommentNumber #{video.comments.length} comments
+            form.add__comment#jsAddComment
+                input(type="text", placeholder="Add a comment")
+            ul.video__comments-list#jsCommentList
+                each comment in video.comments.reverse()
+                    li
+                        span #{comment.text}
