@@ -24,9 +24,12 @@ block content
                 span.video__comment-number 1 comment
             else
                 span.video__comment-number#jsCommentNumber #{video.comments.length} comments
-            form.add__comment#jsAddComment
-                input(type="text", placeholder="Add a comment")
+            if loggedUser
+                form.add__comment#jsAddComment
+                    input(type="text", placeholder="Add a comment")
             ul.video__comments-list#jsCommentList
                 each comment in video.comments.reverse()
-                    li
+                    li(id=comment.id)
                         span #{comment.text}
+                        if video.creator == loggedUser.id
+                            button#jsCommentDelete X

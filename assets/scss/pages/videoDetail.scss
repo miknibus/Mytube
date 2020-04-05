@@ -48,13 +48,23 @@
     .video__comments-list {
       margin-top: 50px;
       li {
-        background-color: #3498db;
-        color: white;
-        padding: 15px;
-        border-radius: 20px;
-        border-bottom-left-radius: 0px;
-        &:not(:last-child) {
+        display: flex;
+        flex-direction: row;
+        span {
+          background-color: #3498db;
+          color: white;
+          padding: 15px;
+          border-radius: 20px;
+          border-bottom-left-radius: 0px;
           margin-bottom: 15px;
+        }
+        button {
+          margin: 5px;
+          padding: 3px;
+          background-color: #ea232c;
+          font-size: 12px;
+          width: 20px;
+          height: 20px;
         }
       }
     }
