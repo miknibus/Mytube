@@ -8,7 +8,7 @@ export const getJoin = (req, res) => {
 
 export const postJoin = async (req, res, next) => {
   const {
-    body: { name, email, password, password2 }
+    body: { name, email, password, password2 },
   } = req;
   if (password !== password2) {
     res.status(400);
@@ -17,7 +17,7 @@ export const postJoin = async (req, res, next) => {
     try {
       const user = await User({
         name,
-        email
+        email,
       });
       await User.register(user, password);
       next();
@@ -30,16 +30,18 @@ export const postJoin = async (req, res, next) => {
 
 export const getLogin = (req, res) =>
   res.render("login", { pageTitle: "Login" });
+
 export const postLogin = passport.authenticate("local", {
   failureRedirect: routes.login,
-  successRedirect: routes.root
+  successRedirect: routes.root,
 });
 
 export const githubLogin = passport.authenticate("github");
 
 export const githubLoginCallback = async (_, __, profile, cb) => {
+  console.log(profile);
   const {
-    _json: { id, avatar_url, login }
+    _json: { id, avatar_url, login },
   } = profile;
   // TODO: temporary fake email
   const email = `${login}@gmail.com`;
@@ -54,7 +56,7 @@ export const githubLoginCallback = async (_, __, profile, cb) => {
       name: login,
       email,
       avatarUrl: avatar_url,
-      githubId: id
+      githubId: id,
     });
     return cb(null, newUser);
   } catch (error) {
@@ -67,7 +69,7 @@ export const postGithubLogin = (req, res) => {
 };
 
 export const twitchLogin = passport.authenticate("twitch", {
-  scope: "user_read"
+  scope: "user_read",
 });
 
 export const twitchLoginCallback = async (_, __, profile, cb) => {
@@ -85,7 +87,7 @@ export const twitchLoginCallback = async (_, __, profile, cb) => {
       name: display_name,
       email,
       avatarUrl: profile_image_url,
-      twitchId: id
+      twitchId: id,
     });
     return cb(null, newUser);
   } catch (error) {
@@ -104,7 +106,7 @@ export const logout = (req, res) => {
 
 export const getMyProfile = async (req, res) => {
   const {
-    user: { id }
+    user: { id },
   } = req;
   const user = await User.findById(id).populate("videos");
   res.render("userDetail", { pageTitle: "User Detail", user });
@@ -112,7 +114,7 @@ export const getMyProfile = async (req, res) => {
 
 export const userDetail = async (req, res) => {
   const {
-    params: { id }
+    params: { id },
   } = req;
   try {
     const user = await User.findById(id).populate("videos");
@@ -129,13 +131,13 @@ export const getEditProfile = (req, res) => {
 export const postEditProfile = async (req, res) => {
   const {
     body: { name, email },
-    file
+    file,
   } = req;
   try {
     await User.findByIdAndUpdate(req.user._id, {
       name,
       email,
-      avatarUrl: file ? file.path : req.user.avatarUrl
+      avatarUrl: file ? file.path : req.user.avatarUrl,
     });
     // TODO Chrome cookie problem, temporary forced rewrite
     req.user.name = name;
@@ -153,7 +155,7 @@ export const getChangePassword = (req, res) =>
 
 export const postChangePassword = async (req, res) => {
   const {
-    body: { oldPassword, newPassword, newPassword1 }
+    body: { oldPassword, newPassword, newPassword1 },
   } = req;
   try {
     if (newPassword !== newPassword1) {

@@ -13,8 +13,10 @@ export const localsMiddleware = (req, res, next) => {
 
 export const onlyPublic = (req, res, next) => {
   if (req.user) {
+    console.log(req.user);
     res.redirect(routes.root);
   } else {
+    console.log(req.user);
     next();
   }
 };

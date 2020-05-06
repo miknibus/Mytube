@@ -1,6 +1,6 @@
 import express from "express";
-import morgan from "morgan";
 import helmet from "helmet";
+import morgan from "morgan";
 import cookieParser from "cookie-parser";
 import bodyParser from "body-parser";
 import passport from "passport";
@@ -33,7 +33,7 @@ app.use(
     secret: process.env.SECRET_COOKIE,
     resave: true,
     saveUninitialized: false,
-    store: new CookieStore({ mongooseConnection: mongoose.connection })
+    store: new CookieStore({ mongooseConnection: mongoose.connection }),
   })
 );
 

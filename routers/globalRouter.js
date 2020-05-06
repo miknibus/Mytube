@@ -12,7 +12,7 @@ import {
   postGithubLogin,
   twitchLogin,
   postTwitchLogin,
-  getMyProfile
+  getMyProfile,
 } from "../controller/userController";
 import { onlyPublic, onlyPrivate } from "../middlewares";
 
